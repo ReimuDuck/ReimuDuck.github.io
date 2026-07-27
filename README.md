@@ -1,2 +1,2 @@
 # ReimuDuck.github.io
-Testing webdev
+A page dedicated to hosting various things
