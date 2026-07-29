@@ -1,0 +1,10 @@
+html {
+  /* px means "pixels". The base font size is now 10 pixels high */
+  font-size: 15px;
+  /* Replace PLACEHOLDER with the font-family property value you got from Google Fonts */
+  font-family: Montserrat;
+}
+.done {
+  color: darkseagreen;
+  text-decoration: line-through solid black 2px;
+}
