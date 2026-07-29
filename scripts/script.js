@@ -2,7 +2,7 @@ let testPara = document.querySelector(".flavor");
 
 async function fetchJSONData() {
   try {
-    const response = await fetch('Data\\CUBEOUTPUT.json');
+    const response = await fetch('scripts/Data/CUBEOUTPUT.json');
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
