@@ -8,3 +8,18 @@ html {
   color: darkseagreen;
   text-decoration: line-through solid black 2px;
 }
+.hint1{
+  display: none;
+}
+.hint2{
+  display: none;
+}
+.hint3{
+  display: none;
+}
+.hint4{
+  display: none;
+}
+.winORlose{
+  display: none;
+}
