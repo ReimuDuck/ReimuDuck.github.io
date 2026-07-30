@@ -71,7 +71,7 @@ function nextHint(){
 }
 function verify(array){
     const form = input.elements.guessBox.value;
-    if(form.toLowerCase(); == array.name.toLowerCase();){
+    if(form.toLowerCase() == array.name.toLowerCase()){
         correct = true;
         winORlose.textContent = "WINNER IS YOU! " + array.name;
         winORlose.classList.remove("winORlose");
