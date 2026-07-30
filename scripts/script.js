@@ -71,15 +71,15 @@ function nextHint(){
 }
 function verify(array){
     const form = input.elements.guessBox.value;
-    if(form == array.name){
+    if(form.toLowerCase(); == array.name.toLowerCase();){
         correct = true;
-        winORlose.textContent = "WINNER IS YOU!";
+        winORlose.textContent = "WINNER IS YOU! " + array.name;
         winORlose.classList.remove("winORlose");
         return -1;
-    }else if(form != array.name && 0 < guesses){
+    }else if(form.toLowerCase(); != array.name.toLowerCase(); && 0 < guesses){
         nextHint();
     }else{
-        winORlose.textContent = "LOSER IS YOU!";
+        winORlose.textContent = "LOSER IS YOU! " + array.name;
         winORlose.classList.remove("winORlose");
     }
 }
@@ -87,10 +87,10 @@ function verify(array){
 
 
 function setChallHints(arrChall){
-    hint1.textContent = "HP: " + arrChall.hp;
-    hint2.textContent = "Type(s): " + arrChall.types;
-    hint3.textContent = "Stage:" + arrChall.stage;
-    hint4.textContent = "Dex Number: " + arrChall.dexNumber;
+    hint1.textContent = "Type(s): " + arrChall.types;
+    hint2.textContent = "Stage:" + arrChall.stage;
+    hint3.textContent = "Dex Number: " + arrChall.dexNumber;
+    hint4.textContent = "HP: " + arrChall.hp;
 }
 
 
