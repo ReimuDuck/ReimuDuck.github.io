@@ -76,7 +76,7 @@ function verify(array){
         winORlose.textContent = "WINNER IS YOU! " + array.name;
         winORlose.classList.remove("winORlose");
         return -1;
-    }else if(form.toLowerCase(); != array.name.toLowerCase(); && 0 < guesses){
+    }else if(form.toLowerCase() != array.name.toLowerCase() && 0 < guesses){
         nextHint();
     }else{
         winORlose.textContent = "LOSER IS YOU! " + array.name;
