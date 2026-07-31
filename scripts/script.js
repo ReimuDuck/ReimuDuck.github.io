@@ -1,16 +1,9 @@
-const testPara = document.querySelector(".flavor");
-const hint1 = document.querySelector(".hint1");
-const hint2 = document.querySelector(".hint2");
-const hint3 = document.querySelector(".hint3");
-const hint4 = document.querySelector(".hint4");
-const input = document.getElementById("guess");
-const winORlose = document.querySelector(".winORlose");
-guesses = 4;
-correct = false;
+// test vars possibility to rework how this is done
 
+// funcs with possibility to be moved to seperate file will be labelled with //~
 async function fetchJSONData() {
   try {
-    const response = await fetch('scripts/Data/CUBEOUTPUT.json');
+    const response = await fetch('scripts//Data//CUBEOUTPUT.json');
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
@@ -20,83 +13,138 @@ async function fetchJSONData() {
     return null;
   }
 }
-// Function to get today's date in YYYY-MM-DD format
+// Function to get today's date in YYYYMMDD format
+//~
 function getTodayString() {
-    const today = new Date();
-    return today.toISOString().split('T')[0]; // e.g., "2026-07-29"
+    simpleFormat = today.toISOString().split("-")[0]+today.toISOString().split("-")[1]+today.toISOString().split("-")[2].split("T")[0];
+    return simpleFormat; // YYYYMMDD
 }
+//~
+function binarySearchIterative(arr, target) {
+    let start = 0;
+    let end = arr.length - 1;
+    console.log(arr[start]);
+    while (start <= end) {
+        console.log(start);
+        let mid = Math.floor((start + end) / 2);
+        console.log(mid);
+        if (arr[mid].date === target) {
+            console.log(mid);
+            return mid; // Target found
+        } else if (arr[mid].date < target) {
+            start = mid + 1; // Search in the right half
+        } else {
+            end = mid - 1; // Search in the left half   
+        }
+    }
+
+    return -1; // Target not found
+}
+//~
 async function arrayStateCheck(){
     const challArray = await fetchJSONData();
-    var firstDay = new Date(2026,6,29,0);
-    // const arrayDates = [];
-    for (let i = 0; i < challArray.length; i++) {
-        if (getTodayString() == firstDay.toISOString().split('T')[0]){
-            return i;
-        }
-        firstDay = new Date(firstDay.getTime());
-        firstDay.setDate(firstDay.getDate() + 1);
-        // arrayDates[i] = firstDay;
-        
+    if(binarySearchIterative(challArray, getTodayString()) == -1){
+        return -1;
+    }else{
+        console.log(binarySearchIterative(challArray, getTodayString()));
+        return binarySearchIterative(challArray, getTodayString());
     }
+       
     return -1;
 }
-// arrayStateCheck();
+//~
 async function getDailyChallenge(){
     const challArray = await fetchJSONData();
     const challToGive = await arrayStateCheck();
     console.log(challArray[challToGive]);
     return(challArray[challToGive]);
 }
+//~ ALSO REFACTOR THIS
 function nextHint(){
     switch(guesses){
         case 4:
+            guess = input.elements.guessBox.value.charAt(0).toUpperCase() + input.elements.guessBox.value.slice(1);
+            guessed.push(guess);
+            guess1.textContent = guess;
             hint1.classList.remove("hint1");
+            guess1.classList.remove("guess1");
             guesses -= 1;
             break;
         case 3:
+            guess = input.elements.guessBox.value.charAt(0).toUpperCase() + input.elements.guessBox.value.slice(1);
+            guessed.push(guess);
+            guess2.textContent = guess;
             hint2.classList.remove("hint2");
+            guess2.classList.remove("guess2");
             guesses -= 1;
             break;
         case 2:
+            guess = input.elements.guessBox.value.charAt(0).toUpperCase() + input.elements.guessBox.value.slice(1);
+            guessed.push(guess);
+            guess3.textContent = guess;
             hint3.classList.remove("hint3");
+            guess3.classList.remove("guess3");
             guesses -= 1;
             break;
         case 1:
+            guess = input.elements.guessBox.value.charAt(0).toUpperCase() + input.elements.guessBox.value.slice(1);
+            guessed.push(guess);
+            guess4.textContent = guess;
             hint4.classList.remove("hint4");
+            guess4.classList.remove("guess4");
             guesses -= 1;
             break;
         default:
             break;
     }
 }
+//~
 function verify(array){
     const form = input.elements.guessBox.value;
     if(form.toLowerCase() == array.name.toLowerCase()){
         correct = true;
-        winORlose.textContent = "WINNER IS YOU! " + array.name;
+        winORlose.textContent = "WINNER IS YOU! "  + array.name;
         winORlose.classList.remove("winORlose");
+        hide.classList.remove("hide");
+        pkmnCard.removeAttribute('id');
         return -1;
     }else if(form.toLowerCase() != array.name.toLowerCase() && 0 < guesses){
         nextHint();
     }else{
         winORlose.textContent = "LOSER IS YOU! " + array.name;
         winORlose.classList.remove("winORlose");
+        hide.classList.remove("hide");
+        pkmnCard.removeAttribute('id');
     }
 }
 
 
-
+//~
 function setChallHints(arrChall){
-    hint1.textContent = "Type(s): " + arrChall.types;
-    hint2.textContent = "Stage:" + arrChall.stage;
-    hint3.textContent = "Dex Number: " + arrChall.dexNumber;
-    hint4.textContent = "HP: " + arrChall.hp;
+    abilityCheck = arrChall.anAbility != "None" ? ("An ability: " + arrChall.anAbility) : "None" 
+    attackCheck = arrChall.anAttack != "None" ? ("An attack: " + arrChall.anAttack) : "None";
+    result = "";
+    if(abilityCheck == "None" && attackCheck == "None"){
+        result = "HP: " + arrChall.hp;
+    }else if(abilityCheck == "None"){
+        result = "An attack: " + arrChall.anAttack;
+    }else{
+        result = "An ability: " + arrChall.anAbility;
+    }
+
+    title.textContent = "GUESS THAT POKEMON! (CHANGES DAILY) " + today.toISOString().split("T")[0];
+    hint1.textContent = result;
+    hint2.textContent = "Type(s): " + arrChall.types;
+    hint3.textContent = "Stage:" + arrChall.stage;
+    hint4.textContent = "Dex Number: " + arrChall.dexNumber;
+    console.log(arrChall.image);
+    pkmnCard.src = arrChall.image;
+    pkmnCard.alt = arrChall.name;
 }
 
 
 
-// getDailyChallenge();
-// Function to check if we need to run today's action
+// Function to check if the user has completed the game today.
 async function runDailyTask() {
     try {
         const challDone = false;
@@ -122,12 +170,10 @@ async function runDailyTask() {
             // localStorage.setItem('lastDailyRun', today);
 
         } else {
-            
-            console.log(challArray.length);
-            console.log("Daily task already ran today.");
+
         }
     } catch (err) {
-        console.error("Error running daily task:", err);
+        console.error("Error running function: ", err);
     }
 }
 
