@@ -31,21 +31,25 @@ html {
 
 /* GUESSES */
 .guess1{
+  font-size: 20px;
   border-radius: 10px;
   border-color: black;
   display: none;
 }
 .guess2{
+  font-size: 20px;
   border-radius: 10px;
   border-color: black;
   display: none;
 }
 .guess3{
+  font-size: 20px;
   border-radius: 10px;
   border-color: black;
   display: none;
 }
 .guess4{
+  font-size: 20px;
   border-radius: 10px;
   border-color: black;
   display: none;
