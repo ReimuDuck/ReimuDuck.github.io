@@ -31,21 +31,25 @@ html {
 
 /* GUESSES */
 .guess1{
+  font-size: 20px;
   border-radius: 10px;
   border-color: black;
   display: none;
 }
 .guess2{
+  font-size: 20px;
   border-radius: 10px;
   border-color: black;
   display: none;
 }
 .guess3{
+  font-size: 20px;
   border-radius: 10px;
   border-color: black;
   display: none;
 }
 .guess4{
+  font-size: 20px;
   border-radius: 10px;
   border-color: black;
   display: none;
@@ -68,7 +72,12 @@ html {
 
 .BFD{
   display: grid;
+<<<<<<< HEAD
 /* grid: auto-flow / 1fr 1fr 1fr; */
+=======
+  
+  /* grid: auto-flow / 1fr 1fr 1fr; */
+>>>>>>> d34cbafd375d40462f2e8038e817a5b4a27c45fe
   /* gap: 50px;                   
  height: 100vh;  */
 }
