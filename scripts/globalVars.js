@@ -1,24 +1,38 @@
+// ---- state ----
+let pkmns = [];
+let guesses = 4;
+let guessed = [];
+let correct = false;
+let highStreak = 0;
+const today = new Date();
 
-//~ REFACTOR THIS
-const hint1 = document.querySelector(".hint1");
-const hint2 = document.querySelector(".hint2");
-const hint3 = document.querySelector(".hint3");
-const hint4 = document.querySelector(".hint4");
+// ---- DOM refs ----
+const datalist = document.getElementById('pkmns');
 
-const guess1 = document.querySelector(".guess1");
-const guess2 = document.querySelector(".guess2");
-const guess3 = document.querySelector(".guess3");
-const guess4 = document.querySelector(".guess4");
+const hints = [1, 2, 3, 4].map(n => document.querySelector(`.hint${n}`));
+const guessEls = [1, 2, 3, 4].map(n => document.querySelector(`.guess${n}`));
 
 const testPara = document.querySelector(".flavor");
 const title = document.querySelector(".title");
 const random = document.getElementById("random");
 const input = document.getElementById("guess");
+const streak = document.querySelector(".streak");
 
 const winORlose = document.querySelector(".winORlose");
 const hide = document.querySelector(".hide");
 const pkmnCard = document.getElementById("pkmnCard");
-const today = new Date();
-guesses = 4;
-guessed = [];
-correct = false;
+
+// ---- init ----
+async function initPkmnList() {
+    pkmns = await getList();
+
+    const fragment = document.createDocumentFragment();
+    pkmns.forEach(item => {
+        const option = document.createElement('option');
+        option.value = item;
+        fragment.appendChild(option);
+    });
+    datalist.appendChild(fragment);
+}
+
+initPkmnList();

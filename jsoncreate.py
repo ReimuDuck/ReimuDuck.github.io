@@ -4,6 +4,9 @@ import json
 from tcgdexsdk import TCGdex, Query
 import datetime
 
+def deName(pkmn: str = "", desc: str = ""):
+    return desc.replace(pkmn, "______")
+
 # YYYYMMDAY
 async def get_random_cards(count: int = 50, trainer: bool = False):
     sdk = TCGdex("en")
@@ -34,16 +37,20 @@ async def get_random_cards(count: int = 50, trainer: bool = False):
         dateFormat = t.strftime("%Y%m%d")
         # I wasn't sure how to change from the cardresume object type into the card object type so this is what I did
         carded = await sdk.card.get(card.id)
+        cardDescription = carded.description
+
         card_img = carded.get_image_url("high","webp")
         # Likely a way to filter out cards without description and image before this part but I couldn't find it in the docs
         if carded.description != None and card_img  != None:
+            if carded.name in carded.description:
+                cardDescription = deName(carded.name, carded.description)
             payload = {
                 "name": carded.name,
                 "dexNumber": carded.dexId,
                 "anAttack": carded.attacks[0].name if carded.attacks else "None",
                 "stage": carded.stage,
                 "anAbility": carded.abilities[0].name if carded.abilities else "None",
-                "description": carded.description,
+                "description": cardDescription,
                 "types": carded.types,
                 "image": card_img,
                 "date": dateFormat
@@ -57,7 +64,7 @@ async def get_random_cards(count: int = 50, trainer: bool = False):
 
 async def main():
   # Now only Pokemon
-    cards = await get_random_cards(300,False)
+    cards = await get_random_cards(2000,False)
     with open("CUBEOUTPUT.json", "w", encoding="utf-8") as text_file:
         text_file.write(cards)
 

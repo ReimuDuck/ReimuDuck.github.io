@@ -1,8 +1,9 @@
 <!doctype html>
 <html lang="en-US">
   <head>
-    <script async src="scripts\script.js?version=0.1"></script>
-    <script async src="scripts\globalVars.js?version=0.01"></script>
+    <script async src="scripts\script.js?version=0.2"></script>
+    <script async src="scripts\autocomplete.js?version=0.1"></script>
+    <script async src="scripts\globalVars.js?version=0.02"></script>
     <link href="styles\style.css" rel="stylesheet" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
@@ -15,6 +16,7 @@
       <div>
         <a href="random.html">RANDOMIZE!!!</a>
         <h1 class="title">GUESS THAT POKEMON! (CHANGES DAILY)</h1>
+        <h2 class="streak">Streak:</h2>
         <h2>Flavor text:</h2>
         <h3 class="flavor">tet</h3>
       </div>
@@ -45,7 +47,8 @@
         <form action="" method="get" id="guess">
           <div class="form-example">
             <label for="name">Enter your guess: </label>
-            <input type="text" name="guessBox" id="guessBox" required />
+            <input list="pkmns" type="text" name="guessBox" id="guessBox" required />
+            <datalist id="pkmns"></datalist>
           </div>
           <div class="form-example">
             <input type="submit" value="submit!" />
