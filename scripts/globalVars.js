@@ -3,7 +3,8 @@ let pkmns = [];
 let guesses = 4;
 let guessed = [];
 let correct = false;
-let highStreak = 0;
+// 1 == daily, 2 == random, 3 == trainer
+let highStreak = [1,2,3].map(n => parseInt(localStorage.getItem(`${n}Streak`)) || 0);
 const today = new Date();
 
 // ---- DOM refs ----

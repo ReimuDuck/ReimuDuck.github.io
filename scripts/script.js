@@ -91,7 +91,7 @@ function nextHint(){
             guessEls[3].textContent = guess;
             hints[3].classList.remove("hint4");
             guessEls[3].classList.remove("guess4");
-            guesses -= 1;
+            guesses = -1;
             break;
         default:
             break;
@@ -104,30 +104,33 @@ function verify(array){
     if (guessed.includes(currentGuess)){
         return -1
     }
-    if(form.toLowerCase() == array.name.toLowerCase()){
-        highStreak += 1;
+    if((form.toLowerCase() == array.name.toLowerCase())){
+        let streak = parseInt(localStorage.getItem('1Streak'));
+        highStreak[0] += 1;
+        correct = true;
         winORlose.textContent = "WINNER IS YOU! "  + array.name;
         winORlose.classList.remove("winORlose");
         hide.classList.remove("hide");
         pkmnCard.removeAttribute('id');
-        localStorage.setItem('streak', highStreak);
+        localStorage.setItem('1Streak', highStreak[0]);
         return -1;
     }else if(form.toLowerCase() != array.name.toLowerCase() && 0 < guesses){
         nextHint();
     }else{
-        highStreak = 0;
+        guesses = 0;
+        highStreak[0] = 0;
         winORlose.textContent = "LOSER IS YOU! " + array.name;
         winORlose.classList.remove("winORlose");
         hide.classList.remove("hide");
         pkmnCard.removeAttribute('id');
-        localStorage.setItem('streak', highStreak);
+        localStorage.setItem('1Streak', highStreak[0]);
     }
 }
 
 
-
 //~
 function setChallHints(arrChall){
+    correct = false;
     abilityCheck = arrChall.anAbility != "None" ? ("An ability: " + arrChall.anAbility) : "None" 
     attackCheck = arrChall.anAttack != "None" ? ("An attack: " + arrChall.anAttack) : "None";
     result = "";
@@ -140,7 +143,7 @@ function setChallHints(arrChall){
     }
 
     title.textContent = "GUESS THAT POKEMON! (CHANGES DAILY) " + today.toISOString().split("T")[0];
-    streak.textContent = 'Streak: ' + localStorage.getItem('streak');
+    streak.textContent = 'Daily Streak: ' + localStorage.getItem('dailyStreak');
     hints[0].textContent = result;
     hints[1].textContent = "Type(s): " + arrChall.types;
     hints[2].textContent = "Stage:" + arrChall.stage;
@@ -157,16 +160,20 @@ async function runDailyTask() {
     try {
         const challDone = false;
         const todaysArray = await getDailyChallenge();
+        const dummyHandler = () => {
+            event.preventDefault();
+            
+        };
         const handler = () => {
             event.preventDefault();
             verify(todaysArray);
 
-            if (correct || guesses <= 0) {
-                input.removeEventListener("input", handler);
+            if (correct || guesses == 0) {
+                input.addEventListener("submit", dummyHandler);
+                input.removeEventListener("submit", handler);
             }
         };
         input.addEventListener("submit", handler);
-
         if (!todaysArray) {
             console.error("Could not load JSON.");
             return;

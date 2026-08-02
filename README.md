@@ -1,2 +1,3 @@
 # ReimuDuck.github.io
-A page dedicated to hosting various things
+
+Hosting a webgame about guessing various Pokemon cards.

@@ -3,6 +3,8 @@ html {
   font-size: 15px;
   /* Replace PLACEHOLDER with the font-family property value you got from Google Fonts */
   font-family: Montserrat;
+  background-color: #05061A;
+  color:aliceblue;
 }
 /* HIDDEN CONTENT */
 
@@ -31,21 +33,25 @@ html {
 
 /* GUESSES */
 .guess1{
+  font-size: 20px;
   border-radius: 10px;
   border-color: black;
   display: none;
 }
 .guess2{
+  font-size: 20px;
   border-radius: 10px;
   border-color: black;
   display: none;
 }
 .guess3{
+  font-size: 20px;
   border-radius: 10px;
   border-color: black;
   display: none;
 }
 .guess4{
+  font-size: 20px;
   border-radius: 10px;
   border-color: black;
   display: none;
@@ -68,6 +74,7 @@ html {
 
 .BFD{
   display: grid;
+
 /* grid: auto-flow / 1fr 1fr 1fr; */
   /* gap: 50px;                   
  height: 100vh;  */

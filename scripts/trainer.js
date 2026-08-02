@@ -3,7 +3,7 @@
 // funcs with possibility to be moved to seperate file will be labelled with //~
 async function fetchJSONData() {
   try {
-    const response = await fetch('scripts//Data//CUBEOUTPUT.json');
+    const response = await fetch('scripts//Data//TrainerOutput.json');
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
@@ -63,47 +63,35 @@ function verify(array){
         return -1
     }
     if((form.toLowerCase() == array.name.toLowerCase())){
-        let streak = parseInt(localStorage.getItem('2Streak'));
-        highStreak[1] += 1;
+        let streak = parseInt(localStorage.getItem('3Streak'));
+        highStreak[2] += 1;
         correct = true;
         winORlose.textContent = "WINNER IS YOU! "  + array.name;
         winORlose.classList.remove("winORlose");
         hide.classList.remove("hide");
         pkmnCard.removeAttribute('id');
-        localStorage.setItem('2Streak', highStreak[1]);
+        localStorage.setItem('3Streak', highStreak[2]);
         return -1;
     }else if(form.toLowerCase() != array.name.toLowerCase() && 0 < guesses){
         nextHint();
     }else{
         guesses = 0;
-        highStreak[1] = 0;
+        highStreak[2] = 0;
         winORlose.textContent = "LOSER IS YOU! " + array.name;
         winORlose.classList.remove("winORlose");
         hide.classList.remove("hide");
         pkmnCard.removeAttribute('id');
-        localStorage.setItem('2Streak', highStreak[1]);
+        localStorage.setItem('3Streak', highStreak[2]);
     }
 }
-
 
 //~
 function setChallHints(arrChall){
     correct = false;
-    abilityCheck = arrChall.anAbility != "None" ? ("An ability: " + arrChall.anAbility) : "None" 
-    attackCheck = arrChall.anAttack != "None" ? ("An attack: " + arrChall.anAttack) : "None";
-    result = "";
-    if(abilityCheck == "None" && attackCheck == "None"){
-        result = "HP: " + arrChall.hp;
-    }else if(abilityCheck == "None"){
-        result = "An attack: " + arrChall.anAttack;
-    }else{
-        result = "An ability: " + arrChall.anAbility;
-    }
-    streak.textContent = 'Random mode Streak: ' + localStorage.getItem('2Streak');
-    hints[0].textContent = result;
-    hints[1].textContent = "Type(s): " + arrChall.types;
-    hints[2].textContent = "Stage:" + arrChall.stage;
-    hints[3].textContent = "Dex Number: " + arrChall.dexNumber;
+    streak.textContent = 'Random Trainer Streak: ' + localStorage.getItem('3Streak');
+    hints[0].textContent = "Set Name: " +  arrChall.setName;
+    hints[1].textContent = "Trainer type: " + arrChall.trainerType;
+    // hints[2].textContent = "Stage:" + arrChall.stage; THIS WILL BE REG MARKS
     console.log(arrChall.image);
     pkmnCard.src = arrChall.image;
     pkmnCard.alt = arrChall.name;
@@ -140,7 +128,7 @@ async function runDailyTask() {
             console.error("Could not load JSON.");
             return;
         }
-        testPara.textContent = ranARR.description;
+        testPara.textContent = ranARR.effect;
         setChallHints(ranARR);
         if (challDone == false) {
             
