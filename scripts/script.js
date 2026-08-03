@@ -15,6 +15,7 @@ async function fetchJSONData() {
 // Function to get today's date in YYYYMMDD format
 //~
 function getTodayString() {
+    const today = new Date();
     simpleFormat = today.toISOString().split("-")[0]+today.toISOString().split("-")[1]+today.toISOString().split("-")[2].split("T")[0];
     return simpleFormat; // YYYYMMDD
 }
@@ -98,7 +99,7 @@ function nextHint(){
     }
 }
 //~
-function verify(array){
+function verify(array, allow){
     const form = input.elements.guessBox.value;
     const currentGuess = input.elements.guessBox.value.charAt(0).toUpperCase() + input.elements.guessBox.value.slice(1);
     if (guessed.includes(currentGuess)){
@@ -106,7 +107,9 @@ function verify(array){
     }
     if((form.toLowerCase() == array.name.toLowerCase())){
         let streak = parseInt(localStorage.getItem('1Streak'));
-        highStreak[0] += 1;
+        if(allow){
+            highStreak[0] += 1;
+        }
         correct = true;
         winORlose.textContent = "WINNER IS YOU! "  + array.name;
         winORlose.classList.remove("winORlose");
@@ -158,15 +161,24 @@ function setChallHints(arrChall){
 // Function to check if the user has completed the game today.
 async function runDailyTask() {
     try {
-        const challDone = false;
-        const todaysArray = await getDailyChallenge();
+        var todayDate = getTodayString();
+        var allow = false;
+        var todaysArray = await getDailyChallenge();
+        var lastDate = localStorage.getItem('lastdate') || -1;
+        if (todayDate != lastDate) {
+            allow = true;
+            localStorage.setItem('lastdate', todayDate);
+
+        } else {
+            allow = false;
+        }
         const dummyHandler = () => {
             event.preventDefault();
             
         };
         const handler = () => {
             event.preventDefault();
-            verify(todaysArray);
+            verify(todaysArray, allow);
 
             if (correct || guesses == 0) {
                 input.addEventListener("submit", dummyHandler);
@@ -180,13 +192,7 @@ async function runDailyTask() {
         }
         testPara.textContent = todaysArray.description;
         setChallHints(todaysArray);
-        if (challDone == false) {
-            
-            // localStorage.setItem('lastDailyRun', today);
 
-        } else {
-
-        }
     } catch (err) {
         console.error("Error running function: ", err);
     }
