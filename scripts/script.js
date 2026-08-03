@@ -143,7 +143,7 @@ function setChallHints(arrChall){
     }
 
     title.textContent = "GUESS THAT POKEMON! (CHANGES DAILY) " + today.toISOString().split("T")[0];
-    streak.textContent = 'Daily Streak: ' + localStorage.getItem('dailyStreak');
+    streak.textContent = 'Daily Streak: ' + localStorage.getItem('1Streak');
     hints[0].textContent = result;
     hints[1].textContent = "Type(s): " + arrChall.types;
     hints[2].textContent = "Stage:" + arrChall.stage;

@@ -4,30 +4,37 @@ html {
   /* Replace PLACEHOLDER with the font-family property value you got from Google Fonts */
   font-family: Montserrat;
   background-color: #05061A;
-  color:aliceblue;
+  color: aliceblue;
+
+}
+.important{
+  display: flex;
+  flex-direction:column;
+  align-items: center;
+  justify-content: center; 
+  gap: 20px;
 }
 /* HIDDEN CONTENT */
 
 /* HINTSS */
 .hints{
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  
+  text-align: center;
+  width: 100%;
 }
 .hint1{
   display: none;
-
 }
 .hint2{
   display: none;
-
 }
 .hint3{
   display: none;
-
 }
 .hint4{
   display: none;
-
 }
 /* HINTSS */
 
@@ -59,24 +66,71 @@ html {
 /* GUESSES */
 
 .hide{
-  display : none;
+  display: none;
   margin-left: auto;
 }
+
 #pkmnCard{
-  display: none;
-  width: 233.333;
-  height: 330;
+  display: block;
+  width: 233.333px;
+  height: 330px;
 }
 
 .winORlose{
   display: none;
 }
 
-.BFD{
-  display: grid;
 
-/* grid: auto-flow / 1fr 1fr 1fr; */
-  /* gap: 50px;                   
- height: 100vh;  */
+.BFD{
+  display: flex;
+  flex-direction: column;
+  align-items: center;   
+  justify-content: center;
+  gap: 10px;
+}
+
+
+.BFD > div form,
+form#guess {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.links{
+  display: flex;
+  flex-direction:row;
+  align-items: center;
+  justify-content: center; 
+  gap: 8px;
+}
+
+.links a:link {
+  background-color: yellow;
+}
+
+.links a:visited {
+  background-color: cyan;
+}
+
+.links a:hover {
+  background-color: lightgreen;
+}
+
+.links a:active {
+  background-color: hotpink;
+}  
+.hide {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+  text-align: center;
+  background-color: #05061A;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 30px rgba(0,0,0,0.6);
 }
 /* HIDDEN CONTENT */
